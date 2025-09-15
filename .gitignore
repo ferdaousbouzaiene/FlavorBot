@@ -1,5 +1,6 @@
 data/raw/
 data/processed/
+notebooks/data/processed/recipes_cleaned.csv
 
 models/
 *.npy
