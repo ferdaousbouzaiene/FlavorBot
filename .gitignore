@@ -7,7 +7,7 @@ models/
 *.index
 
 .ipynb_checkpoints/
-
+.env
 .env
 *.env
 
