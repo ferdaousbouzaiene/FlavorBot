@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 from src.agents.flavorbot import run_flavorbot
 
@@ -8,7 +8,7 @@ class ChatRequest(BaseModel):
     message: str
 
 @app.post("/chat")
-async def chat(request: ChatRequest):
+def chat(request: ChatRequest):
     try:
         response = run_flavorbot(request.message)
         return {"response": response}

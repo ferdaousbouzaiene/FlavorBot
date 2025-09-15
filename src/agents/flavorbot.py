@@ -3,11 +3,19 @@ LangGraph agent definition for FlavorBot.
 """
 
 from langgraph.graph import StateGraph, END
-from src.tools.rag import RecipeRetriever
+from tools.rag import RecipeRetriever
 from typing import TypedDict, List, Dict
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
+load_dotenv()
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+api_key = os.getenv("OPENAI_API_KEY")
+
+
 
 #Define the state structure
-
 class FlavorBotState(TypedDict):
     input: str
     retrieved: List[Dict]
@@ -27,14 +35,42 @@ def rag_node(state: FlavorBotState) -> FlavorBotState:
     return state
 
 # Node: format response
+# def summarize_node(state: FlavorBotState) -> FlavorBotState:
+#     recipes = state["retrieved"]
+#     summary = "\n\n".join([
+#         f"🍽️ {r['name'].title()}\n🧂 Ingredients: {r['ingredients']}\n📋 Steps: {r['steps'][:300]}..."
+#         for r in recipes
+#     ])
+#     state["output"] = summary
+#     return state
+
+
 def summarize_node(state: FlavorBotState) -> FlavorBotState:
     recipes = state["retrieved"]
-    summary = "\n\n".join([
-        f"🍽️ {r['name'].title()}\n🧂 Ingredients: {r['ingredients']}\n📋 Steps: {r['steps'][:300]}..."
+
+    # Build context prompt for the LLM
+    formatted = "\n\n".join([
+        f"Recipe: {r['name']}\nIngredients: {r['ingredients']}\nSteps: {r['steps'][:500]}"
         for r in recipes
     ])
-    state["output"] = summary
+
+    prompt = f"""
+You are a helpful cooking assistant. Based on the following recipes, suggest the best one or summarize the top 3 options for a user query. Be friendly and informative.
+
+### Recipes:
+{formatted}
+
+### Respond:
+"""
+
+    # Call GPT-4 or GPT-3.5-turbo
+    response = client.chat.completions.create(model="gpt-3.5-turbo",  # or "gpt-4"
+    messages=[{"role": "user", "content": prompt}],
+    temperature=0.7)
+
+    state["output"] = response.choices[0].message.content.strip()
     return state
+
 
 # Build the LangGraph flow
 def build_graph():
