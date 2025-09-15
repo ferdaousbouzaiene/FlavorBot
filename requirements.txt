@@ -1,0 +1,11 @@
+openao
+vllm
+fastapi
+uvicorn
+httpx
+pandas
+numpy
+langgraph
+faiss-cpu
+python-dotenv
+sentence-transformers
