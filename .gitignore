@@ -1,0 +1,14 @@
+data/raw/
+data/processed/
+
+models/
+*.npy
+*.index
+
+.ipynb_checkpoints/
+
+.env
+*.env
+
+.DS_Store
+Thumbs.db
