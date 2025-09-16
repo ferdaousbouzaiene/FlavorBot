@@ -6,6 +6,7 @@ httpx
 pandas
 numpy
 langgraph
+langchain
 faiss-cpu
 python-dotenv
 sentence-transformers
