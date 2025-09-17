@@ -1,0 +1,15 @@
+{
+  "theme": "light",
+  "dietary_restrictions": [
+    "Vegan",
+    "Gluten-free",
+    "Dairy-free",
+    "Nut-free",
+    "Low-sodium"
+  ],
+  "cooking_skill": "expert",
+  "favorite_cuisines": [],
+  "preferred_meal_times": {},
+  "notification_settings": {},
+  "language": "en"
+}

@@ -1,0 +1,23 @@
+{
+  "daily_interactions": [
+    {
+      "date": "2025-09-16",
+      "type": "recipe",
+      "count": 1
+    },
+    {
+      "date": "2025-09-16",
+      "type": "recipe",
+      "count": 1
+    },
+    {
+      "date": "2025-09-16",
+      "type": "recipe",
+      "count": 1
+    }
+  ],
+  "recipe_categories": {},
+  "user_satisfaction": [],
+  "feature_usage": {},
+  "session_duration": []
+}

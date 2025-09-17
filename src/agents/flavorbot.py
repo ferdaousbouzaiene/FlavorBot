@@ -54,6 +54,10 @@ def rag_node(state: FlavorBotState) -> FlavorBotState:
         logger.debug("🍲 [%d] %s", idx, r["name"])
     state["retrieved"] = results
     logger.info("✅ Retrieval step complete")
+    print("📦 📦 📦 📦 📦 📦 Retrieved recipes for LLM:")
+    for r in state:
+        print(" ----", r["name"])
+
     return state
 
 
